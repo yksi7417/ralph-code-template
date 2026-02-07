@@ -1,0 +1,104 @@
+# Ralph Wiggum Configuration
+# This file configures the planner and executor models
+
+# ==============================================
+# PLANNER CONFIGURATION
+# Used for planning mode - requires smarter model
+# ==============================================
+planner:
+  # Model to use for planning
+  # Options: claude-opus-4, claude-sonnet-4, gpt-4, etc.
+  model: "claude-opus-4"
+
+  # Provider (for routing)
+  # Options: anthropic, openai, azure, local
+  provider: "anthropic"
+
+  # API configuration (if using remote API)
+  # api_key is read from environment: ANTHROPIC_API_KEY or OPENAI_API_KEY
+  api_base: null  # Use default
+
+  # Max tokens for planning responses
+  max_tokens: 16000
+
+# ==============================================
+# EXECUTOR CONFIGURATION
+# Used for building mode - can use local LLM
+# ==============================================
+executor:
+  # Model to use for execution
+  model: "Qwen3-Coder-Next-UD-Q4_K_XL"
+
+  # Provider
+  provider: "local"
+
+  # Local LLM server configuration
+  api_base: "https://fedora-manor.tail356fe.ts.net/v1"
+
+  # API key (if required by your local server)
+  # Set to empty string or "none" if not needed
+  api_key: "none"
+
+  # Max tokens for executor responses
+  max_tokens: 8000
+
+  # Temperature (lower = more deterministic)
+  temperature: 0.1
+
+# ==============================================
+# PROJECT CONFIGURATION
+# ==============================================
+project:
+  # Language (used in templates)
+  language: null  # Set when starting a project
+
+  # Build tool
+  build_tool: null
+
+  # Test framework
+  test_framework: null
+
+# ==============================================
+# LOOP CONFIGURATION
+# ==============================================
+loop:
+  # Delay between iterations (seconds)
+  delay_seconds: 2
+
+  # Auto-push to git after each iteration
+  auto_push: true
+
+  # Git remote to push to
+  git_remote: "origin"
+
+  # Git branch (null = current branch)
+  git_branch: null
+
+# ==============================================
+# ALTERNATIVE LOCAL LLM OPTIONS
+# Uncomment and configure based on your setup
+# ==============================================
+
+# Option 1: Ollama
+# executor:
+#   model: "qwen2.5-coder:32b"
+#   provider: "ollama"
+#   api_base: "http://localhost:11434/v1"
+
+# Option 2: LM Studio
+# executor:
+#   model: "local-model"
+#   provider: "lmstudio"
+#   api_base: "http://localhost:1234/v1"
+
+# Option 3: vLLM
+# executor:
+#   model: "Qwen/Qwen2.5-Coder-32B-Instruct"
+#   provider: "vllm"
+#   api_base: "http://localhost:8000/v1"
+
+# Option 4: llama.cpp server
+# executor:
+#   model: "model"
+#   provider: "llamacpp"
+#   api_base: "http://localhost:8080/v1"
